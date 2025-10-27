@@ -1,10 +1,3 @@
-# Projeto Mercado
-
-Sistema simples de **gestão de mercado**, desenvolvido para fins acadêmicos.  
-O projeto integra **Java (Swing)** no front-end, **Java puro** no back-end e **PostgreSQL** como banco de dados.
-
----
-
 ## Estrutura de Pastas
 
 Abaixo está a estrutura geral do projeto:
