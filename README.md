@@ -14,15 +14,13 @@ mercado/
 ├── src/
 │ ├── model/ # Representa os dados e entidades do sistema
 │ ├── dao/ # Acesso ao banco de dados e manipulação de dados
-│ ├── service/ # (Opcional) Regras de negócio e lógica de aplicação
 │ └── view/ # Telas e interface gráfica (Swing)
 │
 ├── lib/ # Bibliotecas externas (ex: driver do PostgreSQL)
 │
-├── sql/ # Scripts SQL para criação e manipulação do banco
-│
-└── docs/ # Documentação e diagramas do projeto
+│── sql/ # Scripts SQL para criação e manipulação do banco
 
+--
 
 ## Descrição das Pastas
 
