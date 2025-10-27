@@ -9,22 +9,21 @@ O projeto integra **Java (Swing)** no front-end, **Java puro** no back-end e **P
 
 Abaixo está a estrutura geral do projeto:
 
-mercado/
-│
-├── src/
-│ ├── model/ # Representa os dados e entidades do sistema
-│ ├── dao/ # Acesso ao banco de dados e manipulação de dados
-│ └── view/ # Telas e interface gráfica (Swing)
-│
-├── lib/ # Bibliotecas externas (ex: driver do PostgreSQL)
-│
-│── sql/ # Scripts SQL para criação e manipulação do banco
-
+```bash
+    mercado/
+    │
+    ├── src/
+    │ ├── model/ # Representa os dados e entidades do sistema
+    │ ├── dao/ # Acesso ao banco de dados e manipulação de dados
+    │ └── view/ # Telas e interface gráfica (Swing)
+    │
+    ├── lib/ # Bibliotecas externas (ex: driver do PostgreSQL)
+    │
+    │── sql/ # Scripts SQL para criação e manipulação do banco
+```
 --
 
 ## Descrição das Pastas
-
---
 
 ### **Model**
 Contém as **classes de entidades** que representam os dados do sistema.  
