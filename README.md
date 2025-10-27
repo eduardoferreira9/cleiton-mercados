@@ -21,7 +21,6 @@ Abaixo está a estrutura geral do projeto:
     │
     │── sql/ # Scripts SQL para criação e manipulação do banco
 ```
---
 
 ## Descrição das Pastas
 
