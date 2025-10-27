@@ -1,11 +1,11 @@
-# 🏪 Projeto Mercado
+# Projeto Mercado
 
 Sistema simples de **gestão de mercado**, desenvolvido para fins acadêmicos.  
 O projeto integra **Java (Swing)** no front-end, **Java puro** no back-end e **PostgreSQL** como banco de dados.
 
 ---
 
-## 📁 Estrutura de Pastas
+## Estrutura de Pastas
 
 Abaixo está a estrutura geral do projeto:
 
@@ -65,7 +65,7 @@ O front-end será implementado com **Swing**, permitindo interação direta com 
 
 ---
 
-### 📚 **Lib**
+### **Lib**
 Diretório para **bibliotecas externas** e **drivers** necessários.  
 Exemplo:  
 
@@ -73,7 +73,7 @@ Exemplo:
 
 ---
 
-### 🧾 **Sql**
+### **Sql**
 Armazena os **scripts SQL** utilizados pelo time de banco de dados.  
 Inclui:
 
