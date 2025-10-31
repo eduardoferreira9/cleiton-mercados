@@ -13,33 +13,27 @@ public class TelaPrincipal extends JFrame {
         setTitle("Sistema do Supermercado Cleitin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
-        // Tamanho mínimo para evitar que a tela fique muito pequena
         setMinimumSize(new Dimension(600, 400));
 
+        // Painel degradê
         JPanel painelDegrade = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 Graphics2D g2d = (Graphics2D) g;
 
-                //Cores utilizadas
                 Color cor1 = new Color(215, 215, 215);
                 Color cor2 = new Color(150, 150, 150);
                 Color cor3 = new Color(96, 96, 96);
 
-                //Local de inicio do degrade
                 Point2D start = new Point2D.Float(0, 0);
                 Point2D end = new Point2D.Float(0, getHeight());
                 float[] fractions = {0.0f, 0.5f, 1.0f};
-
-                //Array das cores
                 Color[] colors = {cor1, cor2, cor3};
 
-                //Definindo as cores
                 LinearGradientPaint lgp = new LinearGradientPaint(start, end, fractions, colors);
                 g2d.setPaint(lgp);
                 g2d.fillRect(0, 0, getWidth(), getHeight());
@@ -48,20 +42,16 @@ public class TelaPrincipal extends JFrame {
         painelDegrade.setLayout(new BorderLayout());
         add(painelDegrade, BorderLayout.CENTER);
 
-        // Painel lateral (Menu)
+        // Painel do menu lateral
         JPanel painelMenu = new JPanel();
         painelMenu.setLayout(new BoxLayout(painelMenu, BoxLayout.Y_AXIS));
-
-        // Mantém a largura fixa do menu lateral, enquanto a altura é flexível
         painelMenu.setPreferredSize(new Dimension(560, 90));
-        painelMenu.setMaximumSize(new Dimension(1060, Integer.MAX_VALUE));
-
         painelMenu.setOpaque(false);
         painelMenu.setBorder(new EmptyBorder(100, 0, 30, 0));
 
         Color corBotaoEscuro = new Color(99, 99, 99);
 
-        // Criação dos botões (JLabel's)
+        // Botões
         JLabel lblCadastrarUsuario = criarBotaoMenu(
                 "<html><center>Cadastrar<br>Usuário</center></html>",
                 corBotaoEscuro,
@@ -88,14 +78,14 @@ public class TelaPrincipal extends JFrame {
 
         JLabel lblDeslogar = criarBotaoMenu("Deslogar", new Color(200, 0, 0), Color.WHITE);
 
-        // Alinhamento central para os componentes no BoxLayout
+        // Centraliza os botões
         lblCadastrarUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblGestaoClientes.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblGestaoProdutos.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblSistemaVenda.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblDeslogar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Adiciona os componentes no painelMenu
+        // Adiciona ao painel lateral
         painelMenu.add(Box.createVerticalStrut(15));
         painelMenu.add(lblCadastrarUsuario);
         painelMenu.add(Box.createVerticalStrut(15));
@@ -104,19 +94,16 @@ public class TelaPrincipal extends JFrame {
         painelMenu.add(lblGestaoProdutos);
         painelMenu.add(Box.createVerticalStrut(15));
         painelMenu.add(lblSistemaVenda);
-        painelMenu.add(Box.createVerticalGlue()); // Empurra "Deslogar" para baixo
+        painelMenu.add(Box.createVerticalGlue());
         painelMenu.add(lblDeslogar);
-
 
         painelDegrade.add(painelMenu, BorderLayout.WEST);
 
-
-        // Painel de Conteúdo Principal (Ocupa o restante da tela de forma responsiva)
+        // Painel de boas-vindas
         JPanel painelBemVindo = new JPanel();
-        painelBemVindo.setBackground(new Color(99,99,99));
+        painelBemVindo.setBackground(new Color(99, 99, 99));
         painelBemVindo.setLayout(new BorderLayout());
 
-        // Texto de Bem-vindo
         JLabel lblBemVindo = new JLabel();
         String textoHTML = "<html><div style='text-align: center;'>"
                 + "Bem-vindo " + usuario + "<br>"
@@ -129,36 +116,49 @@ public class TelaPrincipal extends JFrame {
         lblBemVindo.setHorizontalAlignment(SwingConstants.CENTER);
         lblBemVindo.setVerticalAlignment(SwingConstants.CENTER);
 
-
-        // Adiciona o texto ao painel principal, garantindo a centralização
         painelBemVindo.add(lblBemVindo, BorderLayout.CENTER);
-
-        // Adiciona o painel principal no CENTER, que ocupa todo o espaço restante
         painelDegrade.add(painelBemVindo, BorderLayout.CENTER);
 
+        // Ações dos botões
+        lblCadastrarUsuario.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose();//fecha tela atual
+                new CadastroUsuario(usuario).setVisible(true);//abre a tela de cadastro de usuario
+            }
+        });
 
-        // 💡 IMPORTANTE: 'setVisible(true)' DEVE SER A ÚLTIMA CHAMADA
-        // após configurar o estado maximizado.
+        lblSistemaVenda.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose(); // Fecha a tela atual
+                new SistemaVenda(usuario).setVisible(true); // Abre a tela de vendas
+            }
+        });
+
+        lblDeslogar.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose(); // Fecha tela principal
+                new TelaLogin("admin").setVisible(true); // Abre tela de login com usuário admin
+            }
+        });
+
         setVisible(true);
-
     }
 
-
-    // Método que cria os botoes (Mantido)
+    // Cria o botão de menu
     private JLabel criarBotaoMenu(String texto, Color corFundo, Color corTexto) {
         JLabel label = new JLabel(texto, SwingConstants.CENTER);
         label.setFont(new Font("Arial", Font.PLAIN, 25));
         label.setOpaque(true);
         label.setBackground(corFundo);
         label.setForeground(corTexto);
-
         label.setPreferredSize(new Dimension(200, 100));
         label.setMaximumSize(new Dimension(1060, 200));
-
         label.setBorder(BorderFactory.createEmptyBorder(16, 8, 16, 0));
         label.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        // Efeito de hover com animação suave
         Color corOriginal = corFundo;
         Color corHover = escurecerCor(corFundo, 0.15f);
         Timer[] animacao = new Timer[1];
@@ -173,18 +173,12 @@ public class TelaPrincipal extends JFrame {
             public void mouseExited(MouseEvent e) {
                 animarCor(label, label.getBackground(), corOriginal, 200, animacao);
             }
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                String textoLimpo = texto.replaceAll("\\<.*?\\>", "");
-                JOptionPane.showMessageDialog(label, "Você clicou em: " + textoLimpo);
-            }
         });
 
         return label;
     }
 
-    // Função para animar transição de cor (Mantida)
+    // Animação de cor
     private void animarCor(JLabel label, Color corInicial, Color corFinal, int duracao, Timer[] refTimer) {
         if (refTimer[0] != null && refTimer[0].isRunning()) refTimer[0].stop();
 
@@ -195,6 +189,7 @@ public class TelaPrincipal extends JFrame {
 
         refTimer[0] = new Timer(intervalo, new ActionListener() {
             int step = 0;
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 float ratio = (float) step / (float) frames;
@@ -209,13 +204,10 @@ public class TelaPrincipal extends JFrame {
         refTimer[0].start();
     }
 
-    // Escurece uma cor em percentual (Mantida)
     private Color escurecerCor(Color cor, float fator) {
         int r = (int) (cor.getRed() * (1 - fator));
         int g = (int) (cor.getGreen() * (1 - fator));
         int b = (int) (cor.getBlue() * (1 - fator));
         return new Color(r, g, b);
     }
-
-
 }
