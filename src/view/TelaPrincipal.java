@@ -76,7 +76,7 @@ public class TelaPrincipal extends JFrame {
                 Color.WHITE
         );
 
-        JLabel lblDeslogar = criarBotaoMenu("Deslogar", new Color(200, 0, 0), Color.WHITE);
+        JLabel lblDeslogar = criarBotaoMenu("Deslogar", new Color(200, 50, 50), Color.WHITE);
 
         // Centraliza os botões
         lblCadastrarUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
