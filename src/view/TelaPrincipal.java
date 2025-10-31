@@ -95,7 +95,6 @@ public class TelaPrincipal extends JFrame {
         lblSistemaVenda.setAlignmentX(Component.CENTER_ALIGNMENT);
         lblDeslogar.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-
         // Adiciona os componentes no painelMenu
         painelMenu.add(Box.createVerticalStrut(15));
         painelMenu.add(lblCadastrarUsuario);

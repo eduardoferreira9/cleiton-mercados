@@ -1,16 +1,17 @@
 package view;
 
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 import java.awt.*;
 import java.awt.geom.Point2D;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SistemaVenda extends JFrame {
 
     public SistemaVenda(String usuario) {
+        // Cria o objeto do Utils
+        Utils utils = new Utils();
+
         // Configurações basicas da janela
         setTitle("Sistema do Supermercado Cleitin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,7 +62,7 @@ public class SistemaVenda extends JFrame {
         headerPanel.add(logoLabel, gbcHeader);
 
         // Botão sair
-        JButton sairButton = createModernButton("SAIR", new Color(215, 50, 50), Color.WHITE, 18);
+        JButton sairButton = utils.createModernButton("SAIR", new Color(215, 50, 50), Color.WHITE, 18);
         sairButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Ação: Sair do Sistema!", "Ação de Botão", JOptionPane.INFORMATION_MESSAGE);
             // System.exit(0); // Código real para sair
@@ -99,15 +100,22 @@ public class SistemaVenda extends JFrame {
         gbcLeft.weightx = 1.0;
 
         // Campos de texto
-        JTextField scanField = new JTextField("Escanear ou Digitar Codigos de Barras/Nome");
+        JTextField scanField = new JTextField();
         scanField.setForeground(Color.GRAY);
         scanField.setPreferredSize(new Dimension(300, 40));
         scanField.setFont(new Font("Arial", Font.PLAIN, 16));
         scanField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 180, 180)),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)
+            BorderFactory.createLineBorder(new Color(180, 180, 180)),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
         gbcLeft.gridy = 0;
+
+        PlaceHolder placeHolderScan = new PlaceHolder(
+            scanField,
+            "Escanear ou Digitar Codigos de Barras/Nome"
+        );
+
+        scanField.addFocusListener(placeHolderScan);
         leftPanel.add(scanField, gbcLeft);
 
         JLabel registroLabel = new JLabel("Registro de Itens");
@@ -115,7 +123,7 @@ public class SistemaVenda extends JFrame {
         gbcLeft.gridy = 1;
         leftPanel.add(registroLabel, gbcLeft);
 
-        JTextField produtoField = new JTextField("Produto/Itens");
+        JTextField produtoField = new JTextField();
         produtoField.setForeground(Color.GRAY);
         produtoField.setPreferredSize(new Dimension(300, 40));
         produtoField.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -124,6 +132,12 @@ public class SistemaVenda extends JFrame {
                 BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
         gbcLeft.gridy = 2;
+
+        PlaceHolder placeHolderProduto = new PlaceHolder(
+            produtoField, "Produto/Itens"
+        );
+
+        produtoField.addFocusListener(placeHolderProduto);
         leftPanel.add(produtoField, gbcLeft);
 
         // Tabela de Itens
@@ -158,6 +172,7 @@ public class SistemaVenda extends JFrame {
         JLabel vendaLabel = new JLabel("Venda");
         vendaLabel.setFont(new Font("Arial", Font.BOLD, 30));
         vendaLabel.setForeground(new Color(50, 50, 50));
+
         gbcRight.gridx = 0;
         gbcRight.gridy = 0;
         gbcRight.gridwidth = GridBagConstraints.REMAINDER;
@@ -173,22 +188,29 @@ public class SistemaVenda extends JFrame {
         rightPanel.add(cpfLabel, gbcRight);
 
         // Campo Buscar Cliente
-        JTextField buscarClienteField = new JTextField("Buscar Cliente");
+        JTextField buscarClienteField = new JTextField();
         buscarClienteField.setForeground(Color.GRAY);
         buscarClienteField.setPreferredSize(new Dimension(150, 40));
         buscarClienteField.setFont(new Font("Arial", Font.PLAIN, 16));
         buscarClienteField.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(180, 180, 180)),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)
+            BorderFactory.createLineBorder(new Color(180, 180, 180)),
+            BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
+
         gbcRight.gridx = 0;
         gbcRight.gridy = 2;
         gbcRight.weightx = 1.0;
         gbcRight.gridwidth = 1;
+
+        PlaceHolder holderBuscaCliente = new PlaceHolder(
+            buscarClienteField, "Buscar Cliente"
+        );
+
+        buscarClienteField.addFocusListener(holderBuscaCliente);
         rightPanel.add(buscarClienteField, gbcRight);
 
         // Butao Buscar
-        JButton buscarButton = createModernButton("Buscar", new Color(0, 120, 215), Color.WHITE, 16);
+        JButton buscarButton = utils.createModernButton("Buscar", new Color(0, 120, 215), Color.WHITE, 16);
         buscarButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Ação: Buscar Cliente!", "Ação de Botão", JOptionPane.INFORMATION_MESSAGE);
         });
@@ -203,7 +225,7 @@ public class SistemaVenda extends JFrame {
         gbcRight.weightx = 1.0;
 
         // Aplicar Desconto
-        JButton descontoButton = createModernButton("Aplicar Desconto", new Color(220, 220, 220), Color.DARK_GRAY, 16);
+        JButton descontoButton = utils.createModernButton("Aplicar Desconto", new Color(220, 220, 220), Color.DARK_GRAY, 16);
         descontoButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Ação: Aplicar Desconto!", "Ação de Botão", JOptionPane.INFORMATION_MESSAGE);
         });
@@ -211,7 +233,7 @@ public class SistemaVenda extends JFrame {
         rightPanel.add(descontoButton, gbcRight);
 
         // Cancelar Venda
-        JButton cancelarButton = createModernButton("Cancelar Venda", new Color(220, 220, 220), Color.DARK_GRAY, 16);
+        JButton cancelarButton = utils.createModernButton("Cancelar Venda", new Color(220, 220, 220), Color.DARK_GRAY, 16);
         cancelarButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Ação: Cancelar Venda!", "Ação de Botão", JOptionPane.INFORMATION_MESSAGE);
         });
@@ -219,7 +241,7 @@ public class SistemaVenda extends JFrame {
         rightPanel.add(cancelarButton, gbcRight);
 
         // Consultar Preço
-        JButton precoButton1 = createModernButton("Consultar Preço", new Color(220, 220, 220), Color.DARK_GRAY, 16);
+        JButton precoButton1 = utils.createModernButton("Consultar Preço", new Color(220, 220, 220), Color.DARK_GRAY, 16);
         precoButton1.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Ação: Consultar Preço (Claro)!", "Ação de Botão", JOptionPane.INFORMATION_MESSAGE);
         });
@@ -227,7 +249,7 @@ public class SistemaVenda extends JFrame {
         rightPanel.add(precoButton1, gbcRight);
 
         // Consultar Preço 2
-        JButton precoButton2 = createModernButton("Consultar Preço", new Color(80, 80, 80), Color.WHITE, 16);
+        JButton precoButton2 = utils.createModernButton("Consultar Preço", new Color(80, 80, 80), Color.WHITE, 16);
         precoButton2.addActionListener(e -> {
             JOptionPane.showMessageDialog(this, "Ação: Consultar Preço (Escuro)!", "Ação de Botão", JOptionPane.INFORMATION_MESSAGE);
         });
@@ -241,62 +263,5 @@ public class SistemaVenda extends JFrame {
         rightPanel.add(filler, gbcRight);
 
         setVisible(true);
-    }
-
-    private JButton createModernButton(String text, Color bgColor, Color fgColor, int fontSize) {
-        JButton button = new JButton(text);
-        button.setOpaque(true);
-        button.setBackground(bgColor);
-        button.setForeground(fgColor);
-        button.setFont(new Font("Arial", Font.BOLD, fontSize));
-        button.setPreferredSize(new Dimension(150, 45));
-
-        // Remove a borda padrão do JButton para aplicar a customizada
-        button.setBorderPainted(false);
-        button.setFocusPainted(false); // Remove o quadrado de foco
-
-        // Aplicação do estilo moderno: cantos arredondados
-        button.setBorder(BorderFactory.createCompoundBorder(
-                new RoundedBorder(bgColor.darker(), 15), // Borda arredondada (raio 15)
-                BorderFactory.createEmptyBorder(10, 15, 10, 15) // Padding interno
-        ));
-
-        return button;
-    }
-
-}
-
-
-//Classe para criar as bordas arredondadas
-class RoundedBorder extends AbstractBorder {
-    private Color color;
-    private int radius;
-
-    public RoundedBorder(Color c, int r) {
-        this.color = c;
-        this.radius = r;
-    }
-
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        Graphics2D g2d = (Graphics2D) g.create();
-
-        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Preenche o fundo do componente (importante para JButtons/JLabels)
-        g2d.setColor(c.getBackground());
-        g2d.fill(new RoundRectangle2D.Double(x, y, width, height, radius, radius));
-
-        // Desenha o contorno
-        g2d.setColor(color);
-        g2d.draw(new RoundRectangle2D.Double(x, y, width - 1, height - 1, radius, radius));
-
-        g2d.dispose();
-    }
-
-    @Override
-    public Insets getBorderInsets(Component c) {
-        // Define o padding para que o conteúdo não toque na borda
-        return new Insets(radius/2, radius, radius/2, radius);
     }
 }
