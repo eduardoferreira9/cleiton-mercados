@@ -136,6 +136,22 @@ public class TelaPrincipal extends JFrame {
             }
         });
 
+        lblGestaoClientes.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose(); // Fecha a tela atual
+                new GestaoDeCliente(usuario).setVisible(true); // Abre a tela de vendas
+            }
+        });
+
+        lblGestaoProdutos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                dispose(); // Fecha a tela atual
+                new GestaoDeProduto(usuario).setVisible(true); // Abre a tela de vendas
+            }
+        });
+
         lblDeslogar.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
